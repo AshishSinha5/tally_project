@@ -1,0 +1,56 @@
+<html>
+<head>
+    <title>Welcome</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% if error_massage %}
+    <p><strong>{{error_massage}}</strong></p>
+{% endif %}
+{% if all_counters %}
+    <h3>Hello there</h3>
+    <form action="{% url 'counter:favorite' %}" method="post">
+        {% csrf_token %}
+        {% for counter in  all_counters %}
+            <input type="radio" id="counter{{forloop.counter}}" name="counter" value="{{counter.id}}" />
+            <label for="counter{{forloop.counter}}">
+                <a href="{% url 'counter:detail' counter.id %}">{{ counter.title }}</a>
+                {% if counter.is_favorite %}
+                    <img src="http://i.imgur.com/b9b13Rd.png" />
+                {% endif %}
+            </label><br/>
+        {% endfor %}
+        <input type="submit" value="favorite">
+    </form>
+{% else %}
+    <h2>You don't have any counters</h2>
+{% endif %}
+</body>
+<script src="{% static 'counter/js/jquery.min.js'%}"></script>
+<script src="{% static 'counter/js/bootstrap.min.js' %}"></script>
+</html>

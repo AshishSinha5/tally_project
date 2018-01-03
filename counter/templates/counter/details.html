@@ -1,0 +1,17 @@
+{% for counts in counter.netcount_set.all %}
+    <li> Count at time - {{ counts.time}} = {{counts.numCount}}</li>
+    {% endfor %}
+
+
+<html>
+<head>
+    <title>{{ counter.title }}</title>
+    {% load staticfiles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'counter/css/bootstrap.css'%}"/>
+</head>
+<body>
+<h2>{{ counter.title }}</h2>
+<p>{{ latest_count }}</p>
+
+</body>
+</html>
