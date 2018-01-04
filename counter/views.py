@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import CounterName, NetCount
+NoneType = type(None)
 
 
 def index(request):
@@ -11,7 +12,10 @@ def detail(request, counter_id):
     # counter = CounterName.objects.get(pk=counter_id)
     counter = get_object_or_404(CounterName, pk=counter_id)
     latest_count = NetCount.objects.filter(CounterName__id=counter_id).last()
-    latest_count = latest_count.numCount
+    if type(latest_count) is NoneType:
+        latest_count = 0
+    else:
+        latest_count = latest_count.numCount
     return render(request, 'counter/details.html', {'counter': counter,
                                                     'latest_count': latest_count,
                                                     })
