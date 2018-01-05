@@ -1,36 +1,21 @@
-from django.shortcuts import render, get_object_or_404
+from django.views import generic
 from .models import CounterName, NetCount
 NoneType = type(None)
 
+class IndexView(generic.ListView):
+    template_name = 'counter/index.html'
 
-def index(request):
-    all_counters = CounterName.objects.all()
-    return render(request, 'counter/index.html', {'all_counters': all_counters})
-
-
-def detail(request, counter_id):
-    # counter = CounterName.objects.get(pk=counter_id)
-    counter = get_object_or_404(CounterName, pk=counter_id)
-    latest_count = NetCount.objects.filter(CounterName__id=counter_id).last()
-    if type(latest_count) is NoneType:
-        latest_count = 0
-    else:
-        latest_count = latest_count.numCount
-    return render(request, 'counter/details.html', {'counter': counter,
-                                                    'latest_count': latest_count,
-                                                    })
+    def get_queryset(self):
+        return CounterName.objects.all()
 
 
-def favorite(request):
-    all_counters = CounterName.objects.all()
-    try:
-        selected_counter = CounterName.objects.get(pk=request.POST['counter'])
-    except (KeyError, CounterName.DoesNotExist):
-        return render(request, 'counter/index.html', {
-            'all_counters': all_counters,
-            'error_message': "You did not select any Counter",
-        })
-    else:
-        selected_counter.is_favorite = True
-        selected_counter.save()
-        return render(request, 'counter/index.html', {'all_counters': all_counters})
+class DetailView(generic.DetailView):
+    model = CounterName
+    template_name = 'counter/details.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        counter = context['countername']
+        context['latestCount'] = NetCount.objects.filter(CounterName__id=counter.id).last()
+        return context
+

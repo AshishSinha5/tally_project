@@ -1,24 +1,11 @@
 {% extends 'counter/base.html' %}
 {% block body %}
-{% if error_massage %}
-    <p><strong>{{error_massage}}</strong></p>
-{% endif %}
-{% if all_counters %}
+
     <h3>Hello there</h3>
-    <form action="{% url 'counter:favorite' %}" method="post">
-        {% csrf_token %}
-        {% for counter in  all_counters %}
-            <input type="radio" id="counter{{forloop.counter}}" name="counter" value="{{counter.id}}" />
-            <label for="counter{{forloop.counter}}">
-                <a href="{% url 'counter:detail' counter.id %}">{{ counter.title }}</a>
-                {% if counter.is_favorite %}
-                    <img src="http://i.imgur.com/b9b13Rd.png" />
-                {% endif %}
-            </label><br/>
+    <ul>
+        {% for counter in object_list  %}
+        <li><a href="{% url 'counter:details' counter.id %}">{{ counter.title }}</a></li>
         {% endfor %}
-        <input type="submit" value="favorite">
-    </form>
-{% else %}
-    <h2>You don't have any counters</h2>
-{% endif %}
+    </ul>
+
 {% endblock %}

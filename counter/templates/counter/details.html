@@ -1,12 +1,10 @@
 {% extends 'counter/base.html' %}
 {% block body %}
 
-{% for counts in counter.netcount_set.all %}
+    {% for counts in countername.netcount_set.all %}
     <li> Count at time - {{ counts.time}} = {{counts.numCount}}</li>
     {% endfor %}
-
-<h2>{{ counter.title }}</h2>
-<p>{{ latest_count }}</p>
+    {{ latestCount.numCount }}
 <button type="button" class="btn btn-success col-md-2" id="increment" onclick="add_to_numCount();"><h4>+</h4></button>
 <button type="button" class="btn btn-danger col-md-2"id="decrement" onclick="sub_from_numCount();"><h4>-</h4></button>
 {% endblock %}

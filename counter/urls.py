@@ -5,10 +5,8 @@ app_name = 'counter'
 
 urlpatterns = [
     # /counter/
-    url(r'^$', views.index, name='index'),
+    url(r'^$', views.IndexView.as_view(), name='index'),
 
-    # /counter/favorite
-    url(r'^favorite/$', views.favorite, name='favorite'),
     # /counter/712/
-    url(r'^(?P<counter_id>[0-9]+)/$', views.detail, name='detail'),
+    url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='details'),
 ]
