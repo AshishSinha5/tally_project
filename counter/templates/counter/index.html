@@ -4,7 +4,15 @@
     <h3>Hello there</h3>
     <ul>
         {% for counter in object_list  %}
-        <li><a href="{% url 'counter:details' counter.id %}">{{ counter.title }}</a></li>
+        <li><a href="{% url 'counter:details' counter.id %}">{{ counter.title }}</a>
+        <form action="{% url 'counter:counter-delete' counter.id %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="counter_id" value="{{counter.id}}"/>
+            <button type="submit" class="btn btn-default btn -sm">
+                <i class="fa fa-trash"></i>
+            </button>
+        </form>
+        </li>
         {% endfor %}
     </ul>
 

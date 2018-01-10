@@ -1,6 +1,9 @@
 from django.views import generic
+from django.views.generic.edit import CreateView,UpdateView,DeleteView
+from django.core.urlresolvers import reverse_lazy
 from .models import CounterName, NetCount
 NoneType = type(None)
+
 
 class IndexView(generic.ListView):
     template_name = 'counter/index.html'
@@ -18,4 +21,33 @@ class DetailView(generic.DetailView):
         counter = context['countername']
         context['latestCount'] = NetCount.objects.filter(CounterName__id=counter.id).last()
         return context
+
+
+class CounterCreate(CreateView):
+    model = CounterName
+    fields = ['title', 'description']
+    template_name = 'counter/counter_form.html'
+
+
+class CounterUpdate(UpdateView):
+    model = CounterName
+    fields = ['title', 'description']
+    template_name = 'counter/counter_form.html'
+
+
+class CounterDelete(DeleteView):
+    model = CounterName
+    success_url = reverse_lazy('counter:index');
+
+
+
+
+
+
+
+
+
+
+
+
 

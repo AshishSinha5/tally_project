@@ -3,6 +3,7 @@
     <title>Welcome</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{%static 'counter/css/index.css'%}">
     <link rel="stylesheet" type="text/css" href="{% static 'counter/css/details.css'%}"/>
 </head>
@@ -41,7 +42,7 @@
     </ul>
       <ul class="navbar-nav ml-auto d-flex align-items-center">
           <li class="nav-item ">
-        <a class="nav-link " href="#">Add Counter</a>
+        <a class="nav-link " href="{% url 'counter:counter-add' %}">Add Counter</a>
       </li>
        <li class="nav-item ">
         <a class="nav-link " href="#">Logoutr</a>

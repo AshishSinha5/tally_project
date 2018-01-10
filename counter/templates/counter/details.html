@@ -4,7 +4,7 @@
     {% for counts in countername.netcount_set.all %}
     <li> Count at time - {{ counts.time}} = {{counts.numCount}}</li>
     {% endfor %}
-    {{ latestCount.numCount }}
+    {{ latestCount.numCount }}</br>
 <button type="button" class="btn btn-success col-md-2" id="increment" onclick="add_to_numCount();"><h4>+</h4></button>
 <button type="button" class="btn btn-danger col-md-2"id="decrement" onclick="sub_from_numCount();"><h4>-</h4></button>
 {% endblock %}
